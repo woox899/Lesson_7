@@ -3,36 +3,38 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class FactorialOfANumberTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+public class FactorialOfANumberTest {
     @DisplayName("Тест программы для вычисления факториала натурального числа")
     @Test
-    void factorialOfANaturalNumberTest() {
+    public void factorialOfANaturalNumberTest() {
         FactorialOfANumber factorial = new FactorialOfANumber();
-        Assertions.assertEquals(6, factorial.calculation(3));
+        assertEquals(6, factorial.calculation(3));
     }
 
     @DisplayName("Тест программы для вычисления факториала числа 0")
     @Test
-    void factorialOfAZeroNumberTest() {
+    public void factorialOfAZeroNumberTest() {
         FactorialOfANumber factorial = new FactorialOfANumber();
-        Assertions.assertEquals(1, factorial.calculation(0));
+        assertEquals(1, factorial.calculation(0));
     }
 
     @DisplayName("Тест программы для вычисления факториала числа 1")
     @Test
-    void factorialOfAOneNumberTest() {
+    public void factorialOfAOneNumberTest() {
         FactorialOfANumber factorial = new FactorialOfANumber();
-        Assertions.assertEquals(1, factorial.calculation(1));
+        assertEquals(1, factorial.calculation(1));
     }
 
     @Test
-    void testFactorialOfNegativeNumber() {
+    public void testFactorialOfNegativeNumber() {
         FactorialOfANumber factorial = new FactorialOfANumber();
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             factorial.calculation(-1);
         });
-        Assertions.assertEquals("Факториал отрицательного числа неопределяется!", exception.getMessage());
+        assertEquals("Факториал отрицательного числа неопределяется!", exception.getMessage());
     }
 }
 
