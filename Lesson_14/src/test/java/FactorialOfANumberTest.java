@@ -1,38 +1,43 @@
 import org.example.FactorialOfANumber;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 public class FactorialOfANumberTest {
 
-    @DisplayName("Тест программы для вычисления факториала натурального числа")
     @Test
-    void factorialOfANaturalNumberTest() {
+    public void testFactorialOfANumber() {
         FactorialOfANumber factorial = new FactorialOfANumber();
-        Assertions.assertEquals(6, factorial.calculation(3));
-    }
-
-    @DisplayName("Тест программы для вычисления факториала числа 0")
-    @Test
-    void factorialOfAZeroNumberTest() {
-        FactorialOfANumber factorial = new FactorialOfANumber();
-        Assertions.assertEquals(1, factorial.calculation(0));
-    }
-
-    @DisplayName("Тест программы для вычисления факториала числа 1")
-    @Test
-    void factorialOfAOneNumberTest() {
-        FactorialOfANumber factorial = new FactorialOfANumber();
-        Assertions.assertEquals(1, factorial.calculation(1));
+        assertEquals(factorial.calculation(3), 6, "Факториал числа 3 равен 3");
     }
 
     @Test
-    void testFactorialOfNegativeNumber() {
+    public void factorialOfAZeroNumberTest() {
         FactorialOfANumber factorial = new FactorialOfANumber();
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        assertEquals(factorial.calculation(0), 1, "Факториал числа 0 рвен 1");
+    }
+//
+//    @DisplayName("Тест программы для вычисления факториала числа 1")
+    @Test
+    public void factorialOfAOneNumberTest() {
+        FactorialOfANumber factorial = new FactorialOfANumber();
+        assertEquals(factorial.calculation(1), 1, "Факториал числа 1 равен 1");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testFactorialOfNegativeNumber() {
+        FactorialOfANumber factorial = new FactorialOfANumber();
+        factorial.calculation(-1);
+    }
+
+    @Test
+    public void testFactorialOfNegativeNumberWithMessage() {
+        try {
+            FactorialOfANumber factorial = new FactorialOfANumber();
             factorial.calculation(-1);
-        });
-        Assertions.assertEquals("Факториал отрицательного числа неопределяется!", exception.getMessage());
+            fail("Ожидалось исключение IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Факториал отрицательного числа неопределяется!");
+        }
     }
 }
 

@@ -1,51 +1,53 @@
-import org.example.Calculator;
 import org.example.ComparisonOfNumbers;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 public class ComparisonOfNumbersTest {
-    @DisplayName("Тест программы, которая сравнивает 2 числа")
     @Test
-    void comparisonOfNumbers() {
+    public void comparisonOfNumbers() {
         ComparisonOfNumbers comparison = new ComparisonOfNumbers();
-        Assertions.assertEquals(false, comparison.comparisonOfNumbers(
-                100, ">", 240));
+        assertEquals(false, comparison.comparisonOfNumbers(
+                100, ">", 240),"Тест программы, которая сравнивает 2 числа");
     }
 
-    @DisplayName("Тест программы, которая сравнивает 2 отрицательных числа")
     @Test
-    void comparisonOfNegativeNumbers() {
+    public void comparisonOfNegativeNumbers() {
         ComparisonOfNumbers comparison = new ComparisonOfNumbers();
-        Assertions.assertEquals(true, comparison.comparisonOfNumbers(
-                -100, ">", -240));
+        assertEquals(true, comparison.comparisonOfNumbers(
+                -100, ">", -240),
+                "Тест программы, которая сравнивает 2 отрицательных числа");
     }
 
-    @DisplayName("Тест программы, которая сравнивает 2 дробных числа")
     @Test
-    void comparisonOfFractionalNumbers() {
+    public void comparisonOfFractionalNumbers() {
         ComparisonOfNumbers comparison = new ComparisonOfNumbers();
-        Assertions.assertEquals(true, comparison.comparisonOfNumbers(
-                27.6, ">", 15.2));
+        assertEquals(true, comparison.comparisonOfNumbers(
+                27.6, ">", 15.2),
+                "Тест программы, которая сравнивает 2 дробных числа");
     }
 
-    @DisplayName("Тест программы, которая сравнивает 2 дробных отрицательных числа")
     @Test
-    void comparisonOfNegativeFractionalNumbers() {
+    public void comparisonOfNegativeFractionalNumbers() {
         ComparisonOfNumbers comparison = new ComparisonOfNumbers();
-        Assertions.assertEquals(false, comparison.comparisonOfNumbers(
-                -11.2, ">", -2.2));
+        assertEquals(false, comparison.comparisonOfNumbers(
+                -11.2, ">", -2.2),
+                "Тест программы, которая сравнивает 2 дробных отрицательных числа");
     }
 
-    @DisplayName("Тест программы, которая сравнивает 2 числа при введении неверного оператора")
-    @Test
-    void comparisonOfNumbersInvalidOperator() {
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void comparisonOfNumbersInvalidOperator() {
         ComparisonOfNumbers comparison = new ComparisonOfNumbers();
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            comparison.comparisonOfNumbers(12, "#", 2);
-        });
-        Assertions.assertEquals("Введен неверный оператор!", exception.getMessage());
+        comparison.comparisonOfNumbers(12, "%", 13);
     }
 
-
+    @Test
+    public void comparisonOfNumbersInvalidOperatorMessage() {
+        try {
+            ComparisonOfNumbers comparison = new ComparisonOfNumbers();
+            comparison.comparisonOfNumbers(12, "%", 13);
+            fail("Ожидалось исключение IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Введен неверный оператор!");
+        }
+    }
 }
